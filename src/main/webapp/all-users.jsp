@@ -11,7 +11,7 @@ if (session.getAttribute("username")== "" ||session.getAttribute("username")==nu
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home Page</title>
+<title>All Users Page</title>
 </head>
 <body>
 	<h1>
@@ -20,14 +20,18 @@ if (session.getAttribute("username")== "" ||session.getAttribute("username")==nu
 	out.print(session.getAttribute("username"));
 	%>
 	</h1>
-	<a href="all-users.jsp">All Users Profile</a>
-	<h1>Profile</h1>
+	
+	<h1>All Users Profile</h1>
 	<%
 	try{
 	int id =Integer.parseInt(session.getAttribute("userId").toString());
 	String role=session.getAttribute("role").toString();
 	Connection conn = MyConnector.connect();
 	String sql="SELECT * FROM tbl_users WHERE id=? AND status=?";
+	
+	if(role.equals("ADM")){
+	sql="SELECT * FROM tbl_users WHERE NOT id=? AND status=?";
+	}
 	
 	PreparedStatement stmt = conn.prepareStatement(sql);
 	stmt.setInt(1, id);
@@ -37,9 +41,7 @@ if (session.getAttribute("username")== "" ||session.getAttribute("username")==nu
 		out.print("User Id:"+rs.getInt("id") +"<br/>");
 		out.print("Name:"+rs.getString("first_name")+" "+rs.getString("last_name")+"<br/>");
 		out.print("Email: "+rs.getString("user__name")+"<br/>");
-		out.print("Role: "+rs.getString("role")+"<br/>");
-		out.print("<a href='profile.jsp?id="+rs.getInt("id") +"'>Edit</a></hr>");
-		
+		out.print("Role: "+rs.getString("role")+"<hr/>");
 	}
 	conn.close();
 	
@@ -47,7 +49,6 @@ if (session.getAttribute("username")== "" ||session.getAttribute("username")==nu
 		out.print(e.getMessage());
 	}
 	%>
-	
 	
 	<a href="logout.jsp">Logout</a>
 	

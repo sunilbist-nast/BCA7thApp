@@ -1,3 +1,4 @@
+<%@page import="np.edu.nast.bca7th.db.MyConnector"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
@@ -10,12 +11,8 @@ try {
 	String username = request.getParameter("txt_username");
 	String password = request.getParameter("txt_password");
 
-	//Loading database driver
-	Class.forName("com.mysql.cj.jdbc.Driver");
-
-	//Connection establish
-	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bca7thapp", "root", "");
-
+	Connection conn = MyConnector.connect();
+	
 	//Sql statement
 	String sql = "INSERT INTO tbl_users(first_name, last_name, user__name, password, role, status)"
 	+ " VALUES (?, ?, ?, ?,?,?)";

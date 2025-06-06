@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%
+if (session.getAttribute("username")!=null) {
+	response.sendRedirect("index.jsp");
+}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +14,7 @@
 	<h2>Application Login</h2>
 	<hr />
 	<%
-	if (request.getParameter("err") != "") {
+	if (request.getParameter("err") != "" && request.getParameter("err") != null) {
 		out.print(request.getParameter("err"));
 	}
 	%>

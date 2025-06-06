@@ -1,4 +1,5 @@
 
+<%@page import="np.edu.nast.bca7th.db.MyConnector"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -10,11 +11,7 @@ try {
 	String username = request.getParameter("txt_username");
 	String password = request.getParameter("txt_password");
 
-	//Loading database driver
-	Class.forName("com.mysql.cj.jdbc.Driver");
-
-	//Connection establish
-	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bca7thapp", "root", "");
+	Connection conn = MyConnector.connect();
 
 	//Sql statement
 	String sql = "SELECT * FROM tbl_users WHERE user__name=? AND password=? AND status=?";
@@ -25,13 +22,19 @@ try {
 
 	//execute query
 	boolean auth = false;
+	int id=0;
+	String role="USR";
 	ResultSet res = stmt.executeQuery();
 	while (res.next()) {
 		auth = true;
+		id=res.getInt("id");
+		role=res.getString("role");
 	}
 	conn.close();
 	if (auth) {
 		session.setAttribute("username", username);
+		session.setAttribute("userId", id);
+		session.setAttribute("role", role);
 		response.sendRedirect("index.jsp");
 	} else {
 		response.sendRedirect("login.jsp?err=username/password not matched or you are blocked");
