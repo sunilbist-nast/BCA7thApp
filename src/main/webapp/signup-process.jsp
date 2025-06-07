@@ -12,7 +12,7 @@ try {
 	String password = request.getParameter("txt_password");
 
 	Connection conn = MyConnector.connect();
-	
+
 	//Sql statement
 	String sql = "INSERT INTO tbl_users(first_name, last_name, user__name, password, role, status)"
 	+ " VALUES (?, ?, ?, ?,?,?)";

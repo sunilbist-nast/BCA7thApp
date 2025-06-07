@@ -20,7 +20,7 @@ if (session.getAttribute("username")== "" ||session.getAttribute("username")==nu
 	out.print(session.getAttribute("username"));
 	%>
 	</h1>
-	
+
 	<h1>All Users Profile</h1>
 	<%
 	try{
@@ -49,8 +49,8 @@ if (session.getAttribute("username")== "" ||session.getAttribute("username")==nu
 		out.print(e.getMessage());
 	}
 	%>
-	
+
 	<a href="logout.jsp">Logout</a>
-	
+
 </body>
 </html>

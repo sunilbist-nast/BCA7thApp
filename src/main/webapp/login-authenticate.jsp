@@ -22,13 +22,13 @@ try {
 
 	//execute query
 	boolean auth = false;
-	int id=0;
-	String role="USR";
+	int id = 0;
+	String role = "USR";
 	ResultSet res = stmt.executeQuery();
 	while (res.next()) {
 		auth = true;
-		id=res.getInt("id");
-		role=res.getString("role");
+		id = res.getInt("id");
+		role = res.getString("role");
 	}
 	conn.close();
 	if (auth) {

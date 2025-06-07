@@ -67,7 +67,6 @@ if (session.getAttribute("username") == "" || session.getAttribute("username") =
 			String lastName = request.getParameter("txt_lastname");
 			int id = Integer.parseInt(request.getParameter("txt_id"));
 
-			out.print(firstName+lastName+id);
 			Connection conn = MyConnector.connect();
 
 			//Sql statement
